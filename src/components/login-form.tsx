@@ -28,6 +28,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation"
 import { signinAction } from "@/server/auth/auth"
+import { useAuthStore } from "@/store/useAuthStore"
 
 const formSchema = z.object({
   username: z.string().min(1, {
@@ -43,6 +44,7 @@ type LoginFormValues = z.infer<typeof formSchema>
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
+  const { setUser } = useAuthStore()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -53,16 +55,22 @@ export default function LoginForm() {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
     try {
-      // Llamamos a signinAction para verificar el inicio de sesión
+
       const result = await signinAction(values.username, values.password)
 
       if (result === false) {
         toast.error("Correo o contraseña incorrectos")
         return
       }
-      // toast.success("¡Inicio de sesión exitoso!", {
-      //   description: "Bienvenido nuevamente.",
-      // })
+
+      const res = await fetch("/api/me")
+      const data = await res.json()
+  
+      if (data.user) {
+        setUser(data.user)
+        //console.log(data.user)
+      }
+
 
       router.push("/dashboard")  
     } catch (error) {

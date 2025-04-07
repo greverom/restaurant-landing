@@ -9,6 +9,7 @@ import { useClickOutside } from "@/hooks/useClickOutside"
 import { Menu, X, Utensils } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./themeToggle"
+import { useAuthStore } from "@/store/useAuthStore"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -16,9 +17,11 @@ export default function Header() {
   const router = useRouter()
   const menuRef = useRef<HTMLDivElement>(null)
   useClickOutside(menuRef, () => setIsMenuOpen(false))
+  const clearRole = useAuthStore((state) => state.clearUser)
 
   const handleSignOut = async () => {
     await signoutAction()
+    clearRole()
     router.push("/")
   }
 
