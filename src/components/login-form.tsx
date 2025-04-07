@@ -26,6 +26,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useRouter } from "next/navigation"
+import { signinAction } from "@/server/auth/auth"
 
 const formSchema = z.object({
   username: z.string().min(1, {
@@ -40,7 +42,7 @@ type LoginFormValues = z.infer<typeof formSchema>
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
-
+  const router = useRouter()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,14 +51,22 @@ export default function LoginForm() {
     },
   })
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (values) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
     try {
-      console.log(values)
+      // Llamamos a signinAction para verificar el inicio de sesión
+      const result = await signinAction(values.username, values.password)
+
+      if (result === false) {
+        toast.error("Correo o contraseña incorrectos")
+        return
+      }
+
+
       toast.success("¡Inicio de sesión exitoso!", {
         description: "Bienvenido nuevamente.",
       })
 
-      // router.push("/dashboard") // redirección futura
+      router.push("/dashboard")  
     } catch (error) {
       const message = error instanceof Error ? error.message : "Ocurrió un error"
       toast.error("Error al iniciar sesión", { description: message })

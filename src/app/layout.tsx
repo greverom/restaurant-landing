@@ -2,7 +2,6 @@ import type React from "react"
 import "@/app/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import Header from "@/components/header"
 import { Toaster } from "sonner"
 
 
@@ -22,7 +21,6 @@ export default function RootLayout({
     <html lang="es" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <Header/>
           {children}
           <Toaster richColors position="top-center" />
         </ThemeProvider>

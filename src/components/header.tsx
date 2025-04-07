@@ -5,20 +5,31 @@ import Link from "next/link"
 import { Menu, X, Utensils } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./themeToggle"
-
+import { useAuth } from "@/hooks/useAuth"
+import { useRouter } from "next/navigation"
+import { signoutAction } from "@/server/auth/auth"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { isLogged, user } = useAuth()  
+  const router = useRouter()
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+  const handleSignOut = async () => {
+    await signoutAction()
+    router.push("/") 
   }
+
+  const getInitials = (name: string) => {
+    const [first, last] = name.split(" ")
+    return `${first[0]}${last ? last[0] : ""}`.toUpperCase()
+  }
+
+  if (!isLogged) return null
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Utensils className="h-6 w-6 text-orange-500" />
@@ -40,39 +51,52 @@ export default function Header() {
             <Link href="/menu" className="text-sm font-medium hover:text-orange-400">
               Menú
             </Link>
-            <Link href="/login" className="text-sm font-medium hover:text-orange-400">
-              Iniciar Sesión
-            </Link>
-            <ThemeToggle />
-            <Button className="ml-4 bg-orange-500 hover:bg-orange-600">
-              <Link href="/register">Registrarte</Link>
+
+            {/* Mostrar nombre del usuario (iniciales) */}
+            <div className="flex items-center space-x-2">
+              {user && (
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold">
+                  {getInitials(user.name)} 
+                </div>
+              )}
+            </div>
+
+            <Button
+              variant="outline"
+              className="border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800"
+              onClick={handleSignOut}
+            >
+              Sign Out
             </Button>
+            
+            <div className="flex justify-center py-2">
+              <ThemeToggle />
+            </div>
+
           </nav>
+         
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden">
             <button
-              onClick={toggleMenu}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-800 focus:outline-none"
             >
               <span className="sr-only">Abrir menú principal</span>
-              {isMenuOpen ? (
-                <X className="h-6 w-6" aria-hidden="true" />
-              ) : (
-                <Menu className="h-6 w-6" aria-hidden="true" />
-              )}
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+     {/* Mobile Menu */}
       <div
         className={`${
           isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         } md:hidden overflow-hidden transition-all duration-300 ease-in-out`}
       >
         <div className="space-y-1 px-4 pb-3 pt-2">
+          {/* Links del menú móvil */}
           <Link
             href="/"
             className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
@@ -97,23 +121,38 @@ export default function Header() {
           >
             Menú
           </Link>
-          <Link
-            href="/login"
-            className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
-          >
-            Iniciar Sesión
-          </Link>
+
+          {/* Toggle de tema */}
           <div className="flex justify-center py-2">
             <ThemeToggle />
           </div>
-          <div className="pt-2">
-            <Button className="w-full bg-orange-500 hover:bg-orange-600">
-              <Link href="/register">Registrarte</Link>
-            </Button>
-          </div>
+
+          {/* Botones */}
+          {isLogged ? (
+            <div className="pt-2 space-y-2">
+              <Button
+                className="w-full border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800"
+                variant="outline"
+                onClick={handleSignOut}
+              >
+                Sign Out
+              </Button>
+            </div>
+          ) : (
+            <div className="pt-2 space-y-2">
+              <Button className="w-full bg-orange-500 hover:bg-orange-600" asChild>
+                <Link href="/register">Registrar</Link>
+              </Button>
+              <Button
+                className="w-full border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800"
+                variant="outline"
+              >
+                <Link href="/login">Iniciar Sesión</Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </header>
   )
 }
-
