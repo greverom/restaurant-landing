@@ -15,7 +15,7 @@ export const signinAction = async (email: string, password: string) => {
 
   cookiesHandler.set("isLogged", "ok", {
     path: "/",
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   })
@@ -27,7 +27,7 @@ export const signinAction = async (email: string, password: string) => {
     
   }), {
     path: "/",
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
   })

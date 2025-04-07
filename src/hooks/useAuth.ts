@@ -15,31 +15,26 @@ export function useAuth() {
   const [isLogged, setIsLogged] = useState(false)
 
   useEffect(() => {
-
-    const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
-      const [key, value] = cookie.split("=")
-      acc[key] = value
-      return acc
-    }, {} as Record<string, string>)
-
-    //console.log(cookies)
-
-    if (cookies["isLogged"] === "ok" && cookies["user"]) {
+    const fetchUser = async () => {
       try {
-        const parsedUser: User = JSON.parse(decodeURIComponent(cookies["user"]))
-        //console.log(parsedUser)
-        setUser(parsedUser)
-        setIsLogged(true)
+        const res = await fetch("/api/me")
+        const data = await res.json()
+
+        if (data.user) {
+          setUser(data.user)
+          setIsLogged(true)
+        } else {
+          setUser(null)
+          setIsLogged(false)
+        }
       } catch (error) {
-        console.error("❌ Error al parsear la cookie del usuario:", error)
+        console.error("❌ Error al obtener el usuario:", error)
         setUser(null)
         setIsLogged(false)
       }
-    } else {
-      console.warn("⚠️ No hay cookies válidas para sesión.")
-      setUser(null)
-      setIsLogged(false)
     }
+
+    fetchUser()
   }, [])
 
   return { user, isLogged, role: user?.role }
