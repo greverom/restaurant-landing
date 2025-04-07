@@ -22,6 +22,7 @@ export default function Header() {
   const handleSignOut = async () => {
     await signoutAction()
     clearRole()
+
     router.push("/")
   }
 
