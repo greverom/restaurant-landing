@@ -60,11 +60,9 @@ export default function LoginForm() {
         toast.error("Correo o contraseña incorrectos")
         return
       }
-
-
-      toast.success("¡Inicio de sesión exitoso!", {
-        description: "Bienvenido nuevamente.",
-      })
+      // toast.success("¡Inicio de sesión exitoso!", {
+      //   description: "Bienvenido nuevamente.",
+      // })
 
       router.push("/dashboard")  
     } catch (error) {
