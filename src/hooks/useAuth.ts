@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react"
 
+type Role = "administrador" | "mesero" | "cocinero"
+
 type User = {
   name: string
   email: string
-  role: "administrador" | "mesero" | "cocinero"
+  role: Role
 }
 
 export function useAuth() {
@@ -13,21 +15,28 @@ export function useAuth() {
   const [isLogged, setIsLogged] = useState(false)
 
   useEffect(() => {
+
     const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
       const [key, value] = cookie.split("=")
       acc[key] = value
       return acc
     }, {} as Record<string, string>)
 
+    //console.log(cookies)
+
     if (cookies["isLogged"] === "ok" && cookies["user"]) {
       try {
-        const parsedUser = JSON.parse(decodeURIComponent(cookies["user"]))
+        const parsedUser: User = JSON.parse(decodeURIComponent(cookies["user"]))
+        //console.log(parsedUser)
         setUser(parsedUser)
         setIsLogged(true)
       } catch (error) {
-        console.error("Error al parsear user cookie", error)
+        console.error("❌ Error al parsear la cookie del usuario:", error)
+        setUser(null)
+        setIsLogged(false)
       }
     } else {
+      console.warn("⚠️ No hay cookies válidas para sesión.")
       setUser(null)
       setIsLogged(false)
     }

@@ -18,6 +18,7 @@ export async function POST(request: NextRequest) {
     JSON.stringify({
       name: user.name,
       email: user.email,
+      role: user.role, 
     })
   )
 

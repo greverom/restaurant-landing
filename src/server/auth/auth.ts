@@ -3,6 +3,7 @@
 import { signinMock } from "@/services/signin"
 import { cookies } from "next/headers"
 
+
 export const signinAction = async (email: string, password: string) => {
   const user = await signinMock(email, password)
 
@@ -22,6 +23,7 @@ export const signinAction = async (email: string, password: string) => {
   cookiesHandler.set("user", JSON.stringify({
     name: user.name,
     email: user.email,
+    role: user.role,
     
   }), {
     path: "/",

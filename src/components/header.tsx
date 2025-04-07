@@ -9,14 +9,16 @@ import { useAuth } from "@/hooks/useAuth"
 import { useRouter } from "next/navigation"
 import { signoutAction } from "@/server/auth/auth"
 
+// ...imports
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { isLogged, user } = useAuth()  
+  const { isLogged, user } = useAuth()
   const router = useRouter()
 
   const handleSignOut = async () => {
     await signoutAction()
-    router.push("/") 
+    router.push("/")
   }
 
   const getInitials = (name: string) => {
@@ -42,21 +44,29 @@ export default function Header() {
             <Link href="/" className="text-sm font-medium hover:text-orange-400">
               Inicio
             </Link>
-            <Link href="/mesas" className="text-sm font-medium hover:text-orange-400">
-              Mesas
-            </Link>
-            <Link href="/cocina" className="text-sm font-medium hover:text-orange-400">
-              Cocina
-            </Link>
-            <Link href="/menu" className="text-sm font-medium hover:text-orange-400">
-              Menú
-            </Link>
 
-            {/* Mostrar nombre del usuario (iniciales) */}
+            {(user?.role === "administrador" || user?.role === "mesero") && (
+              <Link href="/mesas" className="text-sm font-medium hover:text-orange-400">
+                Mesas
+              </Link>
+            )}
+
+            {(user?.role === "administrador" || user?.role === "mesero" || user?.role === "cocinero") && (
+              <Link href="/cocina" className="text-sm font-medium hover:text-orange-400">
+                Cocina
+              </Link>
+            )}
+
+            {(user?.role === "administrador" || user?.role === "mesero") && (
+              <Link href="/menu" className="text-sm font-medium hover:text-orange-400">
+                Menú
+              </Link>
+            )}
+
             <div className="flex items-center space-x-2">
               {user && (
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold">
-                  {getInitials(user.name)} 
+                  {getInitials(user.name)}
                 </div>
               )}
             </div>
@@ -68,13 +78,11 @@ export default function Header() {
             >
               Sign Out
             </Button>
-            
+
             <div className="flex justify-center py-2">
               <ThemeToggle />
             </div>
-
           </nav>
-         
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden">
@@ -89,46 +97,52 @@ export default function Header() {
         </div>
       </div>
 
-     {/* Mobile Menu */}
+      {/* Mobile Menu */}
       <div
         className={`${
           isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         } md:hidden overflow-hidden transition-all duration-300 ease-in-out`}
       >
         <div className="space-y-1 px-4 pb-3 pt-2">
-          {/* Links del menú móvil */}
           <Link
             href="/"
             className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
           >
             Inicio
           </Link>
-          <Link
-            href="/mesas"
-            className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
-          >
-            Mesas
-          </Link>
-          <Link
-            href="/cocina"
-            className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
-          >
-            Cocina
-          </Link>
-          <Link
-            href="/menu"
-            className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
-          >
-            Menú
-          </Link>
 
-          {/* Toggle de tema */}
+          {(user?.role === "administrador" || user?.role === "mesero") && (
+            <Link
+              href="/mesas"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
+            >
+              Mesas
+            </Link>
+          )}
+
+          {(user?.role === "administrador" || user?.role === "mesero" || user?.role === "cocinero") && (
+            <Link
+              href="/cocina"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
+            >
+              Cocina
+            </Link>
+          )}
+
+          {(user?.role === "administrador" || user?.role === "mesero") && (
+            <Link
+              href="/menu"
+              className="block rounded-md px-3 py-2 text-base font-medium hover:bg-gray-800 hover:text-orange-400"
+            >
+              Menú
+            </Link>
+          )}
+
           <div className="flex justify-center py-2">
             <ThemeToggle />
           </div>
 
-          {/* Botones */}
-          {isLogged ? (
+          {isLogged && (
             <div className="pt-2 space-y-2">
               <Button
                 className="w-full border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800"
@@ -136,18 +150,6 @@ export default function Header() {
                 onClick={handleSignOut}
               >
                 Sign Out
-              </Button>
-            </div>
-          ) : (
-            <div className="pt-2 space-y-2">
-              <Button className="w-full bg-orange-500 hover:bg-orange-600" asChild>
-                <Link href="/register">Registrar</Link>
-              </Button>
-              <Button
-                className="w-full border-orange-500 text-orange-500 hover:bg-orange-50 dark:hover:bg-gray-800"
-                variant="outline"
-              >
-                <Link href="/login">Iniciar Sesión</Link>
               </Button>
             </div>
           )}
