@@ -30,7 +30,8 @@ export function useHeaderLogic() {
           setUser({
             id: data.user.id,
             email: data.user.email ?? "email@example.com",
-            name: data.user.email ?? "Usuario",
+            name: data.user.user_metadata?.name ?? data.user.email ?? "Usuario",
+            role: data.user.user_metadata?.role ?? undefined,
           })
         }
       }
@@ -45,9 +46,12 @@ export function useHeaderLogic() {
     router.push("/")
   }
 
-  const getInitials = (email: string) => {
-    const [first] = email.split("@")
-    return first[0]?.toUpperCase() || "U"
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(" ")
+    if (parts.length >= 2) {
+      return `${parts[0][0]}${parts[1][0]}`.toUpperCase()
+    }
+    return name.slice(0, 2).toUpperCase()
   }
 
   return {
