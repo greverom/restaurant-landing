@@ -8,13 +8,19 @@ export default function Hero() {
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
         <span className="text-orange-500"> Restaurante</span>
         </h1>
-        <p className="mx-auto mt-3 max-w-md text-base text-gray-600 dark:text-gray-300 sm:text-lg md:mt-5 md:max-w-3xl md:text-xl">
+        <p className="mx-auto mt-3 max-w-md text-base text-gray-600 dark:text-gray-300 sm:text-md md:mt-5 md:max-w-3xl md:text-md">
           Gestiona pedidos y mesas en un solo lugar.
         </p>
         <div className="mt-5 flex justify-center gap-4 sm:mt-8">
         <Button
           variant="outline"
-          className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white dark:border-orange-500"
+          className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white dark:border-white dark:text-white"
+        >
+          <Link href="/register">Registrarse</Link>
+        </Button>
+        <Button
+          className="bg-orange-500 text-white hover:bg-orange-600 hover:text-white-500 
+                      border border-orange-500 dark:hover:bg-orange-500 dark:hover:text-white"
         >
           <Link href="/login">Iniciar Sesión</Link>
         </Button>

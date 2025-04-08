@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Eye, EyeOff, Utensils } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -16,7 +16,7 @@ import { Input } from '@/components/ui/input'
 import { loginUser } from '@/server/auth/login/actions' 
 import { useAuthStore } from '@/store/useAuthStore'
 import { getCurrentUserClient } from '@/utils/supabase/clientUser'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Correo inválido' }),
@@ -29,6 +29,7 @@ export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -37,6 +38,14 @@ export default function LoginForm() {
       password: '',
     },
   })
+
+  useEffect(() => {
+    if (searchParams.get("emailConfirm") === "true") {
+      toast.success("Verifica tu correo electrónico", {
+        description: "Hemos enviado un enlace de confirmación a tu correo.",
+      })
+    }
+  }, [searchParams])
 
   const onSubmit = async (values: LoginFormValues) => {
     setIsLoading(true)

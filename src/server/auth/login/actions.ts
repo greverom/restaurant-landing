@@ -1,7 +1,5 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
 export async function loginUser(email: string, password: string) {
@@ -13,17 +11,25 @@ export async function loginUser(email: string, password: string) {
 
 }
 
-export async function signup(email: string, password: string) {
+
+export async function signup(email: string, password: string, name: string, role: string) {
   const supabase = await createClient()
 
-  const { error } = await supabase.auth.signUp({ email, password })
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+        role,
+      },
+    },
+  })
 
   if (error) {
     return error
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/login')
 }
 
 export const getCurrentUser = async () => {
@@ -36,6 +42,7 @@ export const getCurrentUser = async () => {
   return {
     id: data.user.id,
     email: data.user.email!,
-    name: data.user.email || 'Usuario',
+    name: data.user.user_metadata?.name || "Usuario",
+    role: data.user.user_metadata?.role || null,
   }
 }

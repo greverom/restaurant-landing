@@ -33,7 +33,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { useRouter } from "next/navigation" // ✅ CORRECTO para App Router
+import { useRouter } from "next/navigation" 
+import { signup } from "@/server/auth/login/actions"
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -62,21 +63,32 @@ export default function RegisterForm() {
       name: "",
       email: "",
       password: "",
-      role: undefined,
     },
   })
 
-  const onSubmit: SubmitHandler<RegisterFormValues> = (values) => {
+  const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
     try {
-      console.log(values)
-      toast.success("Registro exitoso 🎉", {
-        description: "Ya puedes iniciar sesión",
+      const error = await signup(values.email, values.password, values.name, values.role)
+  
+      if (error) {
+        toast.error("Error al registrarse", {
+          description: error.message,
+        })
+        return
+      }
+  
+      toast.success("Registro exitoso", {
+        description: "Hemos enviado un enlace de confirmación",
       })
-   router.push("/login")
+  
+      setTimeout(() => {
+        router.push("/login?emailConfirm=true")
+      }, 3000)
+  
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Inténtalo de nuevo más tarde"
-
+  
       toast.error("Error al registrarse", {
         description: message,
       })
