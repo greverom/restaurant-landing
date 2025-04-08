@@ -14,6 +14,9 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 
 import { loginUser } from '@/server/auth/login/actions' 
+import { useAuthStore } from '@/store/useAuthStore'
+import { getCurrentUserClient } from '@/utils/supabase/clientUser'
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Correo inválido' }),
@@ -25,6 +28,7 @@ type LoginFormValues = z.infer<typeof formSchema>
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
@@ -36,13 +40,25 @@ export default function LoginForm() {
 
   const onSubmit = async (values: LoginFormValues) => {
     setIsLoading(true)
-
-    const error = await loginUser(values.email, values.password)
-
+  
+    const { error } = await loginUser(values.email, values.password)
+  
     if (error?.message) {
       toast.error('Inicio de sesión fallido', { description: error.message })
       setIsLoading(false)
+      return
     }
+  
+    const user = await getCurrentUserClient()
+    if (user) {
+      const setUser = useAuthStore.getState().setUser
+      setUser(user)
+      console.log("Usuario:", user)
+    }
+  
+    setIsLoading(false)
+  
+    router.push("/dashboard")
   }
 
   return (

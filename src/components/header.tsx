@@ -1,36 +1,24 @@
 "use client"
 
-import { useState, useRef } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { signoutAction } from "@/server/auth/auth"
-import { useAuth } from "@/hooks/useAuth"
-import { useClickOutside } from "@/hooks/useClickOutside"
 import { Menu, X, Utensils } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./themeToggle"
-import { useAuthStore } from "@/store/useAuthStore"
+import { useHeaderLogic } from "@/hooks/useHeaderLogic"
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { isLogged, user } = useAuth()
-  const router = useRouter()
-  const menuRef = useRef<HTMLDivElement>(null)
-  useClickOutside(menuRef, () => setIsMenuOpen(false))
-  const clearUser = useAuthStore((state) => state.clearUser)
-
-  const handleSignOut = async () => {
-    await signoutAction()
-    clearUser()
-    router.push("/")
-  }
-
-  const getInitials = (name: string) => {
-    const [first, last] = name.split(" ")
-    return `${first[0]}${last ? last[0] : ""}`.toUpperCase()
-  }
+  const {
+    isMenuOpen,
+    setIsMenuOpen,
+    menuRef,
+    handleSignOut,
+    isLogged,
+    user,
+    getInitials,
+  } = useHeaderLogic()
 
   if (!isLogged) return null
+  if (!isLogged || !user) return null
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300">
@@ -51,11 +39,9 @@ export default function Header() {
             <Link href="/dashboard/menu" className="text-sm font-medium hover:text-orange-400">Menú</Link>
 
             <div className="flex items-center space-x-2">
-              {user && (
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold">
-                {getInitials(user.email || "U")}
-                </div>
-              )}
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold">
+              {getInitials(user.email || "U")}
+              </div>
             </div>
 
             <Button
