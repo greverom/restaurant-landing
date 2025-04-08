@@ -1,41 +1,22 @@
-"use client"
-
+// src/hooks/useAuth.ts
 import { useEffect, useState } from "react"
-
-type Role = "administrador" | "mesero" | "cocinero"
-
-type User = {
-  name: string
-  email: string
-  role: Role
-}
+import { createClient } from "@/utils/supabase/client"
+import type { User } from "@supabase/supabase-js"
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null)
-  const [isLogged, setIsLogged] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
-      try {
-        const res = await fetch("/api/me")
-        const data = await res.json()
-
-        if (data.user) {
-          setUser(data.user)
-          setIsLogged(true)
-        } else {
-          setUser(null)
-          setIsLogged(false)
-        }
-      } catch (error) {
-        console.error("❌ Error al obtener el usuario:", error)
-        setUser(null)
-        setIsLogged(false)
-      }
+      const supabase = createClient()
+      const { data } = await supabase.auth.getUser()
+      setUser(data.user)
     }
 
     fetchUser()
   }, [])
 
-  return { user, isLogged, role: user?.role }
+  const isLogged = !!user
+
+  return { user, isLogged }
 }

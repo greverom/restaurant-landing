@@ -1,81 +1,47 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Link from "next/link"
-import { Eye, EyeOff, Utensils } from "lucide-react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, SubmitHandler } from "react-hook-form"
-import * as z from "zod"
-import { toast } from "sonner"
+import { useState } from 'react'
+import { Eye, EyeOff, Utensils } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { toast } from 'sonner'
+import Link from 'next/link'
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useRouter } from "next/navigation"
-import { signinAction } from "@/server/auth/auth"
-import { useAuthStore } from "@/store/useAuthStore"
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+
+import { loginUser } from '@/server/auth/login/actions' 
 
 const formSchema = z.object({
-  username: z.string().min(1, {
-    message: "El nombre de usuario es requerido",
-  }),
-  password: z.string().min(6, {
-    message: "La contraseña debe tener al menos 6 caracteres",
-  }),
+  email: z.string().email({ message: 'Correo inválido' }),
+  password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
 })
 
 type LoginFormValues = z.infer<typeof formSchema>
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
-  const router = useRouter()
-  const { setUser } = useAuthStore()
+  const [isLoading, setIsLoading] = useState(false)
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      email: '',
+      password: '',
     },
   })
 
-  const onSubmit: SubmitHandler<LoginFormValues> = async (values) => {
-    try {
+  const onSubmit = async (values: LoginFormValues) => {
+    setIsLoading(true)
 
-      const result = await signinAction(values.username, values.password)
+    const error = await loginUser(values.email, values.password)
 
-      if (result === false) {
-        toast.error("Correo o contraseña incorrectos")
-        return
-      }
-
-      const res = await fetch("/api/me")
-      const data = await res.json()
-  
-      if (data.user) {
-        setUser(data.user)
-        //console.log(data.user)
-      }
-
-
-      router.push("/dashboard")  
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Ocurrió un error"
-      toast.error("Error al iniciar sesión", { description: message })
+    if (error?.message) {
+      toast.error('Inicio de sesión fallido', { description: error.message })
+      setIsLoading(false)
     }
   }
 
@@ -96,21 +62,17 @@ export default function LoginForm() {
 
       <CardContent>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit, () => {
-              toast.error("Completa todos los campos requeridos")
-            })}
-            className="space-y-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
-              name="username"
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:text-gray-300">Nombre de Usuario</FormLabel>
+                  <FormLabel className="dark:text-gray-300">Correo Electrónico</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Ingresa tu nombre de usuario"
+                      type="email"
+                      placeholder="correo@ejemplo.com"
                       {...field}
                       className="border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     />
@@ -119,7 +81,6 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-
             <FormField
               control={form.control}
               name="password"
@@ -129,7 +90,7 @@ export default function LoginForm() {
                   <FormControl>
                     <div className="relative">
                       <Input
-                        type={showPassword ? "text" : "password"}
+                        type={showPassword ? 'text' : 'password'}
                         placeholder="Ingresa tu contraseña"
                         {...field}
                         className="pr-10 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
@@ -141,14 +102,8 @@ export default function LoginForm() {
                         className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                        ) : (
-                          <Eye className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-                        )}
-                        <span className="sr-only">
-                          {showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                        </span>
+                        {showPassword ? <EyeOff className="h-4 w-4 text-gray-400" /> : <Eye className="h-4 w-4 text-gray-400" />}
+                        <span className="sr-only">{showPassword ? 'Ocultar' : 'Mostrar'} contraseña</span>
                       </Button>
                     </div>
                   </FormControl>
@@ -157,11 +112,8 @@ export default function LoginForm() {
               )}
             />
 
-            <Button
-              type="submit"
-              className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-600"
-            >
-              Iniciar Sesión
+            <Button type="submit" disabled={isLoading} className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-600">
+              {isLoading ? 'Cargando...' : 'Iniciar Sesión'}
             </Button>
           </form>
         </Form>
@@ -169,7 +121,7 @@ export default function LoginForm() {
 
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-sm text-center dark:text-gray-400">
-          ¿No tienes una cuenta?{" "}
+          ¿No tienes una cuenta?{' '}
           <Link href="/register" className="text-orange-500 hover:underline">
             Regístrate
           </Link>

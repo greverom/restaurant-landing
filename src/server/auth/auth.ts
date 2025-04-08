@@ -1,44 +1,26 @@
-"use server"
+// server/auth/auth.ts
+'use server'
 
-import { signinMock } from "@/services/signin"
-import { cookies } from "next/headers"
-
+import { createClient } from '@/utils/supabase/server'
+import { redirect } from 'next/navigation'
 
 export const signinAction = async (email: string, password: string) => {
-  const user = await signinMock(email, password)
+  const supabase = await createClient()
 
-  if (!user) {
-    return false
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (error || !data.session) {
+    return false 
   }
-
-  const cookiesHandler = await cookies()
-
-  cookiesHandler.set("isLogged", "ok", {
-    path: "/",
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  })
-
-  cookiesHandler.set("user", JSON.stringify({
-    name: user.name,
-    email: user.email,
-    role: user.role,
-    
-  }), {
-    path: "/",
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-  })
+  redirect('/dashboard')
 
   return true
 }
 
 export const signoutAction = async () => {
-  const cookiesHandler = await cookies()
-
-  cookiesHandler.delete("isLogged")
-  cookiesHandler.delete("user")
- 
+  const supabase = await createClient()
+  await supabase.auth.signOut()
 }
