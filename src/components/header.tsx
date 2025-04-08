@@ -53,7 +53,7 @@ export default function Header() {
             <div className="flex items-center space-x-2">
               {user && (
                 <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-500 text-white font-bold">
-                {getInitials(user.user_metadata?.name ?? "Usuario")}
+                {getInitials(user.email || "U")}
                 </div>
               )}
             </div>

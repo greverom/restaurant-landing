@@ -3,9 +3,10 @@ import { create } from "zustand"
 type Role = "administrador" | "mesero" | "cocinero"
 
 type User = {
+  id: string       
   name: string
   email: string
-  role: Role
+  role?: Role
 }
 
 interface AuthStore {

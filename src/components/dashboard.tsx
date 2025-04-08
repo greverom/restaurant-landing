@@ -12,7 +12,7 @@ export default async function DashboardPage() {
   }
 
   const userData = {
-    name: user.user_metadata?.name ?? "Usuario",
+    name: user.name ?? "Usuario",
     activeOrders: 12,
     occupiedTables: 8,
     kitchenProcesses: 5,
@@ -24,7 +24,7 @@ export default async function DashboardPage() {
       <main className="flex-1 p-6 md:p-8 max-w-7xl mx-auto">
         <div className="flex flex-col gap-4">
           <div>
-            <h1 className="text-2xl font-bold md:text-3xl">Bienvenido, {userData.name} 👋</h1>
+            <h1 className="text-2xl font-bold md:text-3xl">Bienvenido, {user.name} 👋</h1>
             <p className="text-muted-foreground">Resumen general del sistema del restaurante.</p>
           </div>
 

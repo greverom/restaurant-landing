@@ -38,12 +38,16 @@ export async function signup(email: string, password: string) {
   redirect('/login')
 }
 
-export async function getCurrentUser() {
+export const getCurrentUser = async () => {
   const supabase = await createClient()
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const { data, error } = await supabase.auth.getUser()
 
-  return user
+  if (error || !data.user) return null
+
+  return {
+    id: data.user.id,
+    email: data.user.email!,
+    name: data.user.email || 'Usuario',
+  }
 }
