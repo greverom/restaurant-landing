@@ -39,7 +39,7 @@ export const getCurrentUser = async () => {
 
   if (error || !data.user) return null
 
-  //console.log("📦 [Server] Usuario completo desde Supabase:", data.user)
+  console.log("Usuario completo:", data.user)
 
   return {
     id: data.user.id,
