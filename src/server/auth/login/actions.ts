@@ -39,7 +39,7 @@ export const getCurrentUser = async () => {
 
   if (error || !data.user) return null
 
-  console.log("Usuario completo:", data.user)
+  //console.log("Usuario completo:", data.user)
 
   return {
     id: data.user.id,
