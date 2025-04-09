@@ -21,14 +21,15 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   // Get first letter of email as initial
-  const getInitials = (name: string) => {
-    const words = name.trim().split(" ")
-    return words.slice(0, 2).map(w => w[0]?.toUpperCase()).join("")
+  const getInitials = (name: string = "") => {
+    const words = name.trim().split(/\s+/)
+    return words.slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("") || "U"
   }
-  
+  //console.log("Nombre recibido:", user.name)
   const initials = getInitials(user.name || "")
 
   useEffect(() => {
+    
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false)
@@ -39,6 +40,7 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
+    
   }, [])
 
   return (

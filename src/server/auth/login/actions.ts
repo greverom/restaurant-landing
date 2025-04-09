@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
+import { revalidatePath } from 'next/cache'
 
 export async function loginUser(email: string, password: string) {
   const supabase = await createClient()
@@ -49,4 +50,20 @@ export const getCurrentUser = async () => {
     created_at: data.user.created_at,
     last_sign_in_at: data.user.last_sign_in_at || null,
   }
+}
+
+export const changeDisplayName = async (newName: string) => {
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.updateUser({
+    data: {
+      display_name: newName,
+    },
+  })
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  revalidatePath('/dashboard', "page") 
 }

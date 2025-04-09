@@ -3,9 +3,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { PencilIcon, CheckIcon, XIcon, LoaderIcon } from 'lucide-react'
 import { toast } from 'sonner'
-import { changeDisplayName } from '@/server/actions/updateProfile'
+
 import { createClient } from '@/utils/supabase/client'
 import { useAuthStore } from '@/store/useAuthStore'
+import { changeDisplayName } from '@/server/auth/login/actions'
 
 interface ChangeNameProps {
   currentName: string
@@ -76,7 +77,7 @@ export const ChangeName = ({ currentName }: ChangeNameProps) => {
           }}
           disabled={isUpdating}
           className="w-full px-2 py-1 text-xl font-bold bg-white dark:bg-gray-700 border border-orange-500 dark:border-orange-400 rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 text-gray-900 dark:text-white disabled:opacity-70"
-          maxLength={50}
+          maxLength={25}
         />
         <div className="flex space-x-1">
           {isUpdating ? (
