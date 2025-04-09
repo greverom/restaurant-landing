@@ -3,9 +3,10 @@
 import { useEffect, useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { signoutAction } from "@/server/auth/logout/actions"
-import { useClickOutside } from "./useClickOutside"
+
 import { createClient } from "@/utils/supabase/client"
 import { useAuthStore } from "@/store/useAuthStore"
+import { useClickOutside } from "../useClickOutside"
 
 export function useHeaderLogic() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

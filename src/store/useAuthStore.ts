@@ -8,7 +8,7 @@ type User = {
   email: string
   role?: Role
   created_at?: string
-  last_sign_in_at?: string | null
+  last_sign_in_at?: string
 }
 
 interface AuthStore {

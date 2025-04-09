@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { useHeaderLogic } from "@/hooks/useHeaderLogic"
+import { useHeaderLogic } from "@/hooks/header/useHeaderLogic"
 import { Menu, Utensils, X } from "lucide-react"
 import UserDropdown from "./userDropdown"
 import UserProfileModal from "./userProfileModal"

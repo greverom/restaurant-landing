@@ -1,74 +1,21 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Eye, EyeOff, Utensils } from 'lucide-react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
-import { toast } from 'sonner'
 import Link from 'next/link'
-
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useLoginToasts } from '@/hooks/login/useLoginToast'
+import { useLoginForm } from '@/hooks/login/useLoginForm'
 
-import { loginUser } from '@/server/auth/login/actions' 
-import { useAuthStore } from '@/store/useAuthStore'
-import { getCurrentUserClient } from '@/utils/supabase/clientUser'
-import { useRouter, useSearchParams } from 'next/navigation'
-
-const formSchema = z.object({
-  email: z.string().email({ message: 'Correo inválido' }),
-  password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres' }),
-})
-
-type LoginFormValues = z.infer<typeof formSchema>
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const { form, onSubmit, isLoading } = useLoginForm()
+  useLoginToasts()
 
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
-
-  useEffect(() => {
-    if (searchParams.get("emailConfirm") === "true") {
-      toast.success("Verifica tu correo electrónico", {
-        description: "Hemos enviado un enlace de confirmación a tu correo.",
-      })
-    }
-  }, [searchParams])
-
-  const onSubmit = async (values: LoginFormValues) => {
-    setIsLoading(true)
-  
-    const { error } = await loginUser(values.email, values.password)
-  
-    if (error?.message) {
-      toast.error('Inicio de sesión fallido', { description: error.message })
-      setIsLoading(false)
-      return
-    }
-  
-    const user = await getCurrentUserClient()
-    if (user) {
-      const setUser = useAuthStore.getState().setUser
-      setUser(user)
-      console.log("Usuario:", user)
-    }
-  
-    setIsLoading(false)
-  
-    router.replace("/dashboard")
-  }
 
   return (
     <Card className="border border-gray-200 shadow-lg dark:border-none dark:bg-gray-800">
@@ -169,7 +116,7 @@ export default function LoginForm() {
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-sm text-center dark:text-gray-400">
           ¿No tienes una cuenta?{' '}
-          <Link href="/register" className="text-orange-500 hover:underline">
+          <Link href="/dashboard/register" className="text-orange-500 hover:underline">
             Regístrate
           </Link>
         </div>
