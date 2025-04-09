@@ -1,6 +1,6 @@
 // app/dashboard/layout.tsx
 import { ReactNode } from "react"
-import Header from "@/components/header"
+import Header from "@/components/dashboard/header/header"
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (

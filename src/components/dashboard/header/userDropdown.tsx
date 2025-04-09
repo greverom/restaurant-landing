@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { LogOut, User } from "lucide-react"
-import { ThemeToggle } from "./themeToggle"
+import { ThemeToggle } from "../../themeToggle"
 
 
 interface UserDropdownProps {

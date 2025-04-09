@@ -44,7 +44,7 @@ export const getCurrentUser = async () => {
   return {
     id: data.user.id,
     email: data.user.email!,
-    name: data.user.user_metadata?.name || "Usuario",
+    name: data.user.user_metadata?.display_name || "Usuario",
     role: data.user.user_metadata?.role || null,
     created_at: data.user.created_at,
     last_sign_in_at: data.user.last_sign_in_at || null,

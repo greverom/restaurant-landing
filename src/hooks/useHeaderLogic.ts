@@ -30,7 +30,7 @@ export function useHeaderLogic() {
           setUser({
             id: data.user.id,
             email: data.user.email ?? "email@example.com",
-            name: data.user.user_metadata?.name ?? data.user.email ?? "Usuario",
+            name: data.user.user_metadata?.display_name ?? data.user.email ?? "Usuario",
             role: data.user.user_metadata?.role ?? undefined,
             created_at: data.user.created_at,
             last_sign_in_at: data.user.last_sign_in_at ?? undefined,
