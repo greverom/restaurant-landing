@@ -67,7 +67,7 @@ export default function LoginForm() {
   
     setIsLoading(false)
   
-    router.push("/dashboard")
+    router.replace("/dashboard")
   }
 
   return (

@@ -13,13 +13,7 @@ export default function Hero() {
         </p>
         <div className="mt-5 flex justify-center gap-4 sm:mt-8">
         <Button
-          variant="outline"
-          className="border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white dark:border-white dark:text-white"
-        >
-          <Link href="/register">Registrarse</Link>
-        </Button>
-        <Button
-          className="bg-orange-500 text-white hover:bg-orange-600 hover:text-white-500 
+          className="bg-transparent text-orange-500 hover:bg-orange-500 hover:text-white 
                       border border-orange-500 dark:hover:bg-orange-500 dark:hover:text-white"
         >
           <Link href="/login">Iniciar Sesión</Link>

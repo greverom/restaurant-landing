@@ -7,10 +7,16 @@ export const getCurrentUserClient = async () => {
 
   if (error || !data.user) return null
 
+  //console.log(data.user)
+
+  const { id, email, created_at, last_sign_in_at, user_metadata } = data.user
+
   return {
-    id: data.user.id,
-    email: data.user.email!,
-    name: data.user.user_metadata?.name || "Usuario",
-    role: data.user.user_metadata?.role || null,
+    id,
+    email: email!,
+    name: user_metadata?.name || "Usuario",
+    role: user_metadata?.role || null,
+    created_at,
+    last_sign_in_at: last_sign_in_at || null,
   }
 }

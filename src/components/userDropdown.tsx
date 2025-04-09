@@ -45,8 +45,9 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
     <div className="relative" ref={dropdownRef}>
      <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 w-10 rounded-full border border-white text-white dark:bg-gray-900 dark:hover:bg-gray-700 dark:text-white flex items-center justify-center 
-                    font-medium text-sm hover:opacity-90 transition-opacity"
+        className="h-11 w-11 rounded-full border border-gray-400 text-gray-300 dark:bg-gray-900 hover:bg-gradient-to-br 
+                from-gray-900 to-gray-600 hover:border-white hover:text-white dark:hover:text-white
+                 dark:hover:bg-gray-700 dark:text-white flex items-center justify-center hover:opacity-90 transition-opacity cursor-pointer"
         aria-expanded={isOpen}
         aria-haspopup="true"
         >
@@ -54,7 +55,7 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
      </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-56 rounded-md shadow-lg bg-background border border-border z-10">
+        <div className="absolute right-[-25px] mt-3 w-56 rounded-md shadow-lg bg-background border border-border z-10">
           <div className="py-1" role="menu" aria-orientation="vertical">
             <button
               onClick={() => {

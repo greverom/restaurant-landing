@@ -20,7 +20,7 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-col bg-gray-50 dark:bg-gray-900">
       <main className="flex-1 p-6 md:p-8 max-w-7xl mx-auto">
         <div className="flex flex-col gap-4">
           <div>

@@ -39,10 +39,14 @@ export const getCurrentUser = async () => {
 
   if (error || !data.user) return null
 
+  //console.log("📦 [Server] Usuario completo desde Supabase:", data.user)
+
   return {
     id: data.user.id,
     email: data.user.email!,
     name: data.user.user_metadata?.name || "Usuario",
     role: data.user.user_metadata?.role || null,
+    created_at: data.user.created_at,
+    last_sign_in_at: data.user.last_sign_in_at || null,
   }
 }
