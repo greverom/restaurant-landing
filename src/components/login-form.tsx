@@ -72,7 +72,7 @@ export default function LoginForm() {
       }
 
 
-      router.push("/dashboard")  
+      router.replace("/dashboard")  
     } catch (error) {
       const message = error instanceof Error ? error.message : "Ocurrió un error"
       toast.error("Error al iniciar sesión", { description: message })

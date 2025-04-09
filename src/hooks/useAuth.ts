@@ -28,7 +28,7 @@ export function useAuth() {
           setIsLogged(false)
         }
       } catch (error) {
-        console.error("❌ Error al obtener el usuario:", error)
+        console.error("Error al obtener el usuario:", error)
         setUser(null)
         setIsLogged(false)
       }
