@@ -1,4 +1,4 @@
-// app/dashboard/page.tsx
+
 import { getCurrentUser } from "@/server/auth/login/actions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChefHat, ClipboardList, Table, Users } from "lucide-react"
@@ -20,8 +20,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col bg-gray-50 dark:bg-gray-900">
-      <main className="flex-1 p-6 md:p-8 max-w-7xl mx-auto">
+    <div className="flex flex-col bg-gray-100 dark:bg-gray-800">
+      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
         <div className="flex flex-col gap-4">
           <div>
             <h1 className="text-2xl font-bold md:text-3xl">Bienvenido, {user.name} 👋</h1>

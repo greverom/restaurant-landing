@@ -96,7 +96,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <Card className="border-none dark:border-none dark:bg-gray-800">
+    <Card className="border dark:border-gray-700 dark:bg-gray-800">
       <CardHeader className="space-y-1">
         <div className="flex justify-center mb-2">
           <div className="flex items-center space-x-2">
@@ -105,7 +105,7 @@ export default function RegisterForm() {
           </div>
         </div>
         <CardTitle className="text-2xl font-bold text-center">Registro</CardTitle>
-        <CardDescription className="text-center dark:text-gray-400">
+        <CardDescription className="text-center dark:text-gray-300">
           Crea una cuenta para acceder al sistema
         </CardDescription>
       </CardHeader>
@@ -128,7 +128,7 @@ export default function RegisterForm() {
                     <Input
                       placeholder="Ingresa tu nombre completo"
                       {...field}
-                      className="border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -146,7 +146,7 @@ export default function RegisterForm() {
                       type="email"
                       placeholder="correo@ejemplo.com"
                       {...field}
-                      className="border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -165,7 +165,7 @@ export default function RegisterForm() {
                         type={showPassword ? "text" : "password"}
                         placeholder="Crea una contraseña"
                         {...field}
-                        className="border border-gray-300 pr-10 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="border border-gray-300 pr-10 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                       />
                       <Button
                         type="button"
@@ -197,7 +197,7 @@ export default function RegisterForm() {
                   <FormLabel className="dark:text-gray-300">Rol</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger className="w-full border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                      <SelectTrigger className="w-full border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white">
                         <SelectValue placeholder="Selecciona un rol" />
                       </SelectTrigger>
                     </FormControl>
@@ -214,7 +214,7 @@ export default function RegisterForm() {
 
             <Button
               type="submit"
-              className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-600"
+              className="w-full mt-6 py-6 bg-orange-400 hover:bg-orange-500"
             >
               Registrarse
             </Button>
@@ -223,9 +223,9 @@ export default function RegisterForm() {
       </CardContent>
 
       <CardFooter className="flex flex-col space-y-2">
-        <div className="text-sm text-center dark:text-gray-400">
+        <div className="text-sm text-center dark:text-gray-300">
           ¿Ya tienes una cuenta?{" "}
-          <Link href="/login" className="text-orange-500 hover:underline">
+          <Link href="/login" className="text-orange-400 hover:underline">
             Iniciar Sesión
           </Link>
         </div>

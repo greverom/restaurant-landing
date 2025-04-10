@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Hero() {
   return (
-    <section className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-4 text-center transition-colors duration-300">
+    <section className="flex min-h-[calc(100vh-0rem)] dark:bg-gray-800 flex-col items-center justify-center px-4 text-center transition-colors duration-300">
       <div className="max-w-3xl space-y-6">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
         <span className="text-orange-500"> Restaurante</span>
@@ -13,8 +13,8 @@ export default function Hero() {
         </p>
         <div className="mt-5 flex justify-center gap-4 sm:mt-8">
         <Button
-          className="bg-transparent text-orange-500 hover:bg-orange-500 hover:text-white 
-                      border border-orange-500 dark:hover:bg-orange-500 dark:hover:text-white"
+          className="bg-transparent text-orange-400 hover:bg-orange-500 hover:text-white 
+                      border border-orange-400 dark:hover:bg-orange-500 dark:hover:text-white"
         >
           <Link href="/login">Iniciar Sesión</Link>
         </Button>

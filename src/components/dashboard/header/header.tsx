@@ -24,7 +24,8 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 z-50 w-full bg-gray-900 dark:bg-gray-950 text-white transition-colors duration-300">
+      <header className="fixed top-0 left-0 z-50 w-full bg-gray-100 border-b border-gray-300 dark:border-b dark:border-none dark:border-opacity-20
+                           dark:bg-gray-700 dark:text-gray-300 text-gray-700 transition-colors duration-500">
         <div className="container mx-auto px-3 sm:px-5 md:px-3 lg:px-10">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
@@ -37,15 +38,15 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex md:items-center md:space-x-6">
-              <Link href="/dashboard" className="text-sm text-gray-300 font-medium hover:text-white">Inicio</Link>
-              <Link href="/dashboard/mesas" className="text-sm text-gray-300 font-medium hover:text-white">Mesas</Link>
-              <Link href="/dashboard/cocina" className="text-sm text-gray-300 font-medium hover:text-white">Cocina</Link>
-              <Link href="/dashboard/menu" className="text-sm text-gray-300 font-medium hover:text-white">Menú</Link>
+              <Link href="/dashboard" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Inicio</Link>
+              <Link href="/dashboard/mesas" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Mesas</Link>
+              <Link href="/dashboard/cocina" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Cocina</Link>
+              <Link href="/dashboard/menu" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Menú</Link>
 
               {user.role === "administrador" && (
                 <Link
                   href="/dashboard/register"
-                  className="text-sm text-gray-300 font-medium hover:text-white"
+                  className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600"
                 >
                   Registrar Usuario
                 </Link>
@@ -71,8 +72,8 @@ export default function Header() {
 
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center rounded-md p-2 text-white \
-                          hover:bg-gray-900 hover:text-white focus:outline-none"
+                className="inline-flex items-center justify-center rounded-md p-2 gray-600 \
+                          hover:bg-gray-900 hover:gray-600 focus:outline-none"
               >
                 <span className="sr-only">Abrir menú principal</span>
                 {isMenuOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
@@ -84,36 +85,36 @@ export default function Header() {
         {/* Mobile Menu */}
           <div
             ref={menuRef}
-            className={`transition-all duration-300 ease-in-out overflow-hidden md:hidden ${
-              isMenuOpen ? "max-h-[300px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
+            className={`transition-all duration-500 ease-in-out overflow-hidden md:hidden ${
+              isMenuOpen ? "max-h-[500px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
             }`}
           >
           <div className="flex flex-col px-4 pb-3 pt-2 gap-2">
             <Link
               href="/dashboard"
               onClick={() => setIsMenuOpen(false)}
-              className="w-full text-white px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
+              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
             >
               Inicio
             </Link>
             <Link
               href="/dashboard/mesas"
               onClick={() => setIsMenuOpen(false)}
-              className="w-full text-white px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
+              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
             >
               Mesas
             </Link>
             <Link
               href="/dashboard/cocina"
               onClick={() => setIsMenuOpen(false)}
-              className="w-full text-white px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
+              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
             >
               Cocina
             </Link>
             <Link
               href="/dashboard/menu"
               onClick={() => setIsMenuOpen(false)}
-              className="w-full text-white px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
+              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
             >
               Menú
             </Link>
@@ -122,7 +123,7 @@ export default function Header() {
               <Link
                 href="/dashboard/register"
                 onClick={() => setIsMenuOpen(false)}
-                className="w-full text-white px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
+                className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
               >
                 Registrar Usuario
               </Link>

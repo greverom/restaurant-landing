@@ -18,7 +18,7 @@ export default function LoginForm() {
 
 
   return (
-    <Card className="border border-gray-200 shadow-lg dark:border-none dark:bg-gray-800">
+    <Card className="border border-gray-200 shadow-md dark:shadow-none dark:border-gray-700 dark:bg-gray-800">
       <CardHeader className="space-y-1">
         <div className="flex justify-center mb-2">
           <div className="flex items-center space-x-2">
@@ -27,7 +27,7 @@ export default function LoginForm() {
           </div>
         </div>
         <CardTitle className="text-2xl font-bold text-center">Iniciar Sesión</CardTitle>
-        <CardDescription className="text-center dark:text-gray-400">
+        <CardDescription className="text-center dark:text-gray-300">
           Ingresa tus credenciales para acceder al sistema
         </CardDescription>
       </CardHeader>
@@ -40,13 +40,13 @@ export default function LoginForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="dark:text-gray-300">Correo Electrónico</FormLabel>
+                  <FormLabel className="dark:text-gray-200">Correo Electrónico</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
                       placeholder="correo@ejemplo.com"
                       {...field}
-                      className="border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                     />
                   </FormControl>
                   <FormMessage />
@@ -65,7 +65,7 @@ export default function LoginForm() {
                         type={showPassword ? 'text' : 'password'}
                         placeholder="Ingresa tu contraseña"
                         {...field}
-                        className="pr-10 border border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                        className="pr-10 border border-gray-300 dark:bg-gray-800 dark:border-gray-600 dark:text-white"
                       />
                       <Button
                         type="button"
@@ -84,7 +84,7 @@ export default function LoginForm() {
               )}
             />
 
-            <Button type="submit" className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-600">
+            <Button type="submit" className="w-full mt-6 py-6 bg-orange-400 hover:bg-orange-500">
               {isLoading && (
                 <svg
                   className="mr-2 h-8 w-8 animate-spin text-white"

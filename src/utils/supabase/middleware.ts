@@ -37,13 +37,6 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // if (!user && pathname.startsWith('/dashboard/register')) {
-  //   const url = request.nextUrl.clone()
-  //   url.pathname = '/login'
-  //   url.searchParams.set("unauthorized", "true")
-  //   return NextResponse.redirect(url)
-  // }
-
   if (user && pathname === '/login') {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'

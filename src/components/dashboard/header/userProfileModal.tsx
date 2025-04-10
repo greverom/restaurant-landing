@@ -10,7 +10,7 @@ interface Props {
 export default function UserProfileModal({ user, open, onOpenChange }: Props) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-md py-7 border-none bg-gray-200 dark:bg-gray-800">
+      <DialogContent className="max-w-md p-2 border-none bg-transparent shadow-none dark:bg-transparent">
         <DialogTitle className="sr-only">Perfil de usuario</DialogTitle>
         <DialogDescription className="sr-only">
         </DialogDescription>

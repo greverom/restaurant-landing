@@ -17,6 +17,6 @@ export const getCurrentUserClient = async () => {
     name: user_metadata?.display_name || "Usuario",
     role: user_metadata?.role || null,
     created_at,
-    last_sign_in_at: last_sign_in_at || null,
+    last_sign_in_at: last_sign_in_at || undefined,
   }
 }
