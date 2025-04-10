@@ -55,21 +55,21 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
      </button>
 
       {isOpen && (
-        <div className="absolute right-[-25px] mt-5 w-56 rounded-md shadow-lg bg-background border border-border z-10">
+        <div className="absolute right-[-25px] mt-5 w-56 rounded-md shadow-lg bg-background dark:bg-gray-700 border border-border z-10">
           <div className="py-1" role="menu" aria-orientation="vertical">
             <button
               onClick={() => {
                 onProfileClick()
                 setIsOpen(false)
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-foreground hover:bg-gray-300 dark:hover:bg-gray-700"
+              className="flex items-center w-full px-4 py-3 text-sm text-foreground hover:bg-gray-300 dark:hover:bg-gray-600"
               role="menuitem"
             >
               <User className="mr-2 h-4 w-4" />
               Mi perfil
             </button>
 
-            <div className=" hover:bg-gray-300 dark:hover:bg-gray-700">
+            <div className=" hover:bg-gray-300 dark:hover:bg-gray-600">
             <ThemeToggle />
             </div>
 
@@ -78,7 +78,7 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
                 onLogout()
                 setIsOpen(false)
               }}
-              className="flex items-center w-full px-4 py-3 text-sm text-foreground hover:bg-gray-300 dark:hover:bg-gray-700"
+              className="flex items-center w-full px-4 py-3 text-sm text-foreground hover:bg-gray-300 dark:hover:bg-gray-600"
               role="menuitem"
             >
               <LogOut className="mr-2 h-4 w-4" />
