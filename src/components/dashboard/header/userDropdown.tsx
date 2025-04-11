@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useRef, useState } from "react"
 import { LogOut, User } from "lucide-react"
 import { ThemeToggle } from "../../themeToggle"
-
 
 interface UserDropdownProps {
   user: {
@@ -16,46 +15,41 @@ interface UserDropdownProps {
   getInitials: (value: string) => string
 }
 
-export default function UserDropdown({ user, onLogout = () => {}, onProfileClick = () => {} }: UserDropdownProps) {
+export default function UserDropdown({ user, onLogout, onProfileClick, getInitials }: UserDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const getInitials = (name: string = "") => {
-    const words = name.trim().split(/\s+/)
-    return words.slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("") || "U"
+  const initials = getInitials(user.name)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setIsOpen(true)
   }
-  //console.log(user.name)
-  const initials = getInitials(user.name || "")
 
-  useEffect(() => {
-    
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-    
-  }, [])
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsOpen(false)
+    }, 300) 
+  }
 
   return (
-    <div className="relative" ref={dropdownRef}>
-     <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="h-10 w-10 rounded-full font-bold text-orange-400 bg-gray-100 border hover:border-orange-500
-                dark:bg-gray-700  dark:text-gray-300 dark:hover:border-gray-400 flex items-center justify-center transition-all  cursor-pointer"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
-        >
+    <div
+      className="relative z-50"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Avatar */}
+      <div
+        className="h-10 w-10 rounded-full font-bold text-gray-600 bg-gray-100 border hover:border-gray-500
+        dark:bg-gray-700 dark:text-gray-300 dark:hover:border-gray-400 flex items-center justify-center 
+        transition-all cursor-pointer"
+      >
         {initials}
-     </button>
+      </div>
 
+      {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-[-25px] mt-5 w-56 rounded-md shadow-lg bg-background dark:bg-gray-700 border border-border z-10">
+        <div className="absolute right-[-25px] mt-3 w-56 rounded-md shadow-lg bg-background dark:bg-gray-700 border border-border z-50">
           <div className="py-1" role="menu" aria-orientation="vertical">
             <button
               onClick={() => {
@@ -69,8 +63,8 @@ export default function UserDropdown({ user, onLogout = () => {}, onProfileClick
               Mi perfil
             </button>
 
-            <div className=" hover:bg-gray-300 dark:hover:bg-gray-600">
-            <ThemeToggle />
+            <div className="hover:bg-gray-300 dark:hover:bg-gray-600">
+              <ThemeToggle />
             </div>
 
             <button

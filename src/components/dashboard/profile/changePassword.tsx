@@ -31,9 +31,8 @@ export default function ChangePassword() {
     <button
       onClick={handleResetPassword}
       disabled={isLoading}
-      className="w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 
-                text-white font-medium rounded-lg flex items-center justify-center space-x-2 transform transition-all duration-200 
-                hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg disabled:opacity-60"
+      className="w-full py-3 px-4 bg-orange-500 cursor-pointer text-white font-medium rounded-lg 
+                flex items-center justify-center space-x-2 shadow-md hover:shadow-lg disabled:opacity-60"
                     >
       {isLoading ? (
         <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">

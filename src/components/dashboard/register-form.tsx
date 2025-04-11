@@ -55,6 +55,8 @@ type RegisterFormValues = z.infer<typeof formSchema>
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   const router = useRouter()
   
   const form = useForm<RegisterFormValues>({
@@ -67,6 +69,7 @@ export default function RegisterForm() {
   })
 
   const onSubmit: SubmitHandler<RegisterFormValues> = async (values) => {
+    setIsLoading(true)
     try {
       const error = await signup(values.email, values.password, values.name, values.role)
   
@@ -92,6 +95,8 @@ export default function RegisterForm() {
       toast.error("Error al registrarse", {
         description: message,
       })
+    }finally {
+      setIsLoading(false) 
     }
   }
 
@@ -213,8 +218,9 @@ export default function RegisterForm() {
             />
 
             <Button
+             disabled={isLoading}
               type="submit"
-              className="w-full mt-6 py-6 bg-orange-400 hover:bg-orange-500"
+              className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-500 cursor-pointer"
             >
               Registrarse
             </Button>

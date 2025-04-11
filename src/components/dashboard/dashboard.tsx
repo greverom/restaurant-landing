@@ -20,17 +20,17 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="flex flex-col bg-gray-100 dark:bg-gray-800">
-      <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto">
-        <div className="flex flex-col gap-4">
+    <div className="flex flex-col bg-gray-100 dark:bg-gray-900">
+      <main className="flex-1 py-10 md:py-10 max-w-7xl mx-auto">
+        <div className="flex flex-col gap-14">
           <div>
             <h1 className="text-2xl font-bold md:text-3xl">Bienvenido, {user.name} 👋</h1>
             <p className="text-muted-foreground">Resumen general del sistema del restaurante.</p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {/* Pedidos activos */}
-            <Card className="border-none shadow-md">
+            <Card className="border shadow-md dark:bg-gray-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Pedidos Activos</CardTitle>
               </CardHeader>
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
             </Card>
 
             {/* Mesas ocupadas */}
-            <Card className="border-none shadow-md">
+            <Card className="border shadow-md dark:bg-gray-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Mesas Ocupadas</CardTitle>
               </CardHeader>
@@ -66,7 +66,7 @@ export default async function DashboardPage() {
             </Card>
 
             {/* Cocina en proceso */}
-            <Card className="border-none shadow-md">
+            <Card className="border shadow-md dark:bg-gray-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Cocina en Proceso</CardTitle>
               </CardHeader>
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
             </Card>
 
             {/* Total de usuarios */}
-            <Card className="border-none shadow-md">
+            <Card className="border shadow-md dark:bg-gray-800">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">Total de Usuarios</CardTitle>
               </CardHeader>

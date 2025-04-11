@@ -84,7 +84,7 @@ export default function LoginForm() {
               )}
             />
 
-            <Button type="submit" className="w-full mt-6 py-6 bg-orange-400 hover:bg-orange-500">
+            <Button  disabled={isLoading} type="submit" className="w-full mt-6 py-6 bg-orange-500 hover:bg-orange-500 cursor-pointer">
               {isLoading && (
                 <svg
                   className="mr-2 h-8 w-8 animate-spin text-white"
@@ -108,6 +108,7 @@ export default function LoginForm() {
                 </svg>
               )}
               {isLoading ? 'Iniciando...' : 'Iniciar Sesión'}
+              
             </Button>
           </form>
         </Form>

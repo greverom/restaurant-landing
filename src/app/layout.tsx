@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" suppressHydrationWarning>
-    <body className={`${inter.className} bg-white dark:bg-gray-800`}>
+    <body className={`${inter.className} bg-white dark:bg-gray-900`}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
         {children}
         <Toaster richColors position="top-center" />

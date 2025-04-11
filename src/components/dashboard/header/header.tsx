@@ -25,7 +25,7 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 z-50 w-full bg-gray-100 border-b border-gray-300 dark:border-b dark:border-none dark:border-opacity-20
-                           dark:bg-gray-700 dark:text-gray-300 text-gray-700 transition-colors duration-500">
+                           dark:bg-gray-800 dark:text-gray-300 text-gray-700 transition-colors duration-500">
         <div className="container mx-auto px-3 sm:px-5 md:px-3 lg:px-10">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
