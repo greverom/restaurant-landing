@@ -1,0 +1,22 @@
+{
+    "name": "Rest-bar",
+    "short_name": "Rest-bar",
+    "description": "Sistema de pedidos y reservaciones para restaurantes",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#a42323",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "/icons/image-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/icons/image-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
