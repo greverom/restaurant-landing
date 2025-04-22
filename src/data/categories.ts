@@ -2,7 +2,7 @@ import { RecipeCategory } from "@/types/recipe-category"
 
 export const CATEGORIES: RecipeCategory[] = [
   { id: "main course", name: "Plato Fuerte", image: "/images/image-plato-fuerte.png" },
-  { id: "side dish", name: "Acompañamientos", image: "/images/acompañamientos.png" },
+  { id: "side dish", name: "Acompañamientos", image: "/images/acompanamientos.png" },
   { id: "dessert", name: "Postres", image: "/images/postres.png" },
   { id: "soup", name: "Sopas", image: "/images/sopas.png" },
   { id: "salad", name: "Ensaladas", image: "/images/ensaladas.png" },

@@ -94,36 +94,12 @@ export default function Header() {
               Inicio
             </Link>
             <Link
-              href="/dashboard/mesas"
+              href="/dashboard/favoritos"
               onClick={() => setIsMenuOpen(false)}
               className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
             >
-              Mesas
+              Faboritos
             </Link>
-            <Link
-              href="/dashboard/cocina"
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
-            >
-              Cocina
-            </Link>
-            <Link
-              href="/dashboard/menu"
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
-            >
-              Menú
-            </Link>
-
-            {user.role === "administrador" && (
-              <Link
-                href="/dashboard/register"
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full gray-600 px-4 py-2 rounded-md text-center hover:bg-gray-700 transition"
-              >
-                Registrar Usuario
-              </Link>
-            )}
           </div>
         </div>
       </header>
