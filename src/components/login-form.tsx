@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Eye, EyeOff, Utensils } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { useLoginToasts } from '@/hooks/login/useLoginToast'
 import { useLoginForm } from '@/hooks/login/useLoginForm'
+import Image from "next/image"
 
 
 export default function LoginForm() {
@@ -22,8 +23,13 @@ export default function LoginForm() {
       <CardHeader className="space-y-1">
         <div className="flex justify-center mb-2">
           <div className="flex items-center space-x-2">
-            <Utensils className="h-6 w-6 text-orange-500" />
-            <span className="text-xl font-bold">Restaurante</span>
+            <Image
+              src="/icons/logoRecipe.png"
+              alt="Logo Recetas"
+              width={24}
+              height={24}
+              className="h-10 w-10"
+            />
           </div>
         </div>
         <CardTitle className="text-2xl font-bold text-center">Iniciar Sesión</CardTitle>
@@ -117,7 +123,7 @@ export default function LoginForm() {
       <CardFooter className="flex flex-col space-y-2">
         <div className="text-sm text-center dark:text-gray-400">
           ¿No tienes una cuenta?{' '}
-          <Link href="/dashboard/register" className="text-orange-500 hover:underline">
+          <Link href="/register" className="text-orange-500 hover:underline">
             Regístrate
           </Link>
         </div>

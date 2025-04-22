@@ -1,3 +1,3 @@
 export default function MesasPage() {
-    return <div>Gestión de mesas</div>
+    return <div>Recetas favoritas</div>
   }

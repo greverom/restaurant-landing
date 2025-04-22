@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { useHeaderLogic } from "@/hooks/header/useHeaderLogic"
-import { Menu, Utensils, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 import UserDropdown from "./userDropdown"
 import UserProfileModal from "./userProfileModal"
 
@@ -31,26 +32,21 @@ export default function Header() {
             {/* Logo */}
             <div className="hidden items-center md:flex">
               <Link href="/" className="flex items-center space-x-2">
-                <Utensils className="h-6 w-6 text-orange-500" />
-                <span className="text-xl font-bold">Restaurante</span>
+                <Image
+                  src="/icons/logoRecipe.png"
+                  alt="Logo Recetas"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6"
+                />
+                <span className="text-xl font-bold">Recetas</span>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex md:items-center md:space-x-6">
               <Link href="/dashboard" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Inicio</Link>
-              <Link href="/dashboard/mesas" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Mesas</Link>
-              <Link href="/dashboard/cocina" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Cocina</Link>
-              <Link href="/dashboard/menu" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Menú</Link>
-
-              {user.role === "administrador" && (
-                <Link
-                  href="/dashboard/register"
-                  className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600"
-                >
-                  Registrar Usuario
-                </Link>
-              )}
+              <Link href="/dashboard/favoritos" className="text-sm text-gray-500 dark:text-gray-300 font-medium hover:gray-600">Favoritos</Link>
 
               {/* Desktop User Dropdown */}
               <UserDropdown
