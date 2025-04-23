@@ -1,12 +1,13 @@
-import { RecipeCategory } from "@/types/recipe-category"
+import { RecipeCategory } from "@/types/food-item"
 
 export const CATEGORIES: RecipeCategory[] = [
-  { id: "main course", name: "Plato Fuerte", image: "/images/image-plato-fuerte.png" },
-  { id: "side dish", name: "Acompañamientos", image: "/images/acompanamientos.png" },
-  { id: "dessert", name: "Postres", image: "/images/postres.png" },
-  { id: "soup", name: "Sopas", image: "/images/sopas.png" },
-  { id: "salad", name: "Ensaladas", image: "/images/ensaladas.png" },
-  { id: "bread", name: "Pan", image: "/images/panes.png" },
-  { id: "starter", name: "Entradas", image: "/images/entradas.png" },
+  { id: "steaks", name: "Platos Fuertes", image: "/images/image-plato-fuerte.png" },
+  { id: "bbqs", name: "BBQ", image: "/images/bbq.png" },
+  { id: "breads", name: "Pan", image: "/images/panes.png" },
+  { id: "burgers", name: "Hamburguesas", image: "/images/hamburguesas.png" },
+  { id: "desserts", name: "Postres", image: "/images/postres.png" },
   { id: "drinks", name: "Bebidas", image: "/images/bebidas.png" },
+  { id: "pizzas", name: "Pizzas", image: "/images/pizzas.png" },
+  { id: "sandwiches", name: "Sándwiches", image: "/images/entradas.png" },
+  { id: "sausages", name: "Embutidos", image: "/images/embutidos.png" },
 ]

@@ -9,7 +9,7 @@ export default function RecipeCategories() {
   const router = useRouter()
 
   const handleClick = (id: string) => {
-    router.push(`/recetas/${id}`) 
+    router.push(`/dashboard/menu/${id}`) 
   }
 
   return (

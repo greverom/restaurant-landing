@@ -28,7 +28,7 @@ export default function DashboardClient() {
 
   return (
     <div className="flex flex-col bg-gray-100 dark:bg-gray-900">
-      <main className="flex-1 py-8 px-2 md:py-10 max-w-7xl mx-auto">
+      <main className="w-full max-w-6xl px-4 md:px-6 py-10 mx-auto">
         <div className="flex flex-col gap-14">
           <div>
             <h1 className="text-xl font-bold md:text-2xl">Bienvenido, {userName} 👋</h1>

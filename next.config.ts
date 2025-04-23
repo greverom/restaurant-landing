@@ -4,6 +4,15 @@ import runtimeCaching from 'next-pwa/cache'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'goldbelly.imgix.net',
+      },
+    ],
+  },
 }
 
 export default withPWA({
